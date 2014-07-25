@@ -1,5 +1,5 @@
-function tabbedNavigation (getElements) {
-  this.divModule = getElements.divModule;
+function tabbedNavigation () {
+  this.divModule = $("div.module");
   this.unorderedList = $("<ul></ul>"); 
 }
 
@@ -46,9 +46,6 @@ tabbedNavigation.prototype.bindEvents = function() {
 };
 
 $(document).ready(function() {
-  var elements = {
-    "divModule" : $("div.module")
-  };
-  var tabbedNavigationObj = new tabbedNavigation(elements);
+  var tabbedNavigationObj = new tabbedNavigation();
   tabbedNavigationObj.init();
 });
