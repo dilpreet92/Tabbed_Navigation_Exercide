@@ -3,17 +3,16 @@ function tabbedNavigation (getElements) {
   this.unorderedList = $("<ul></ul>"); 
 }
 
-tabbedNavigation.prototype.createListElement = function() {
+tabbedNavigation.prototype.init = function() {
+  this.divModule.hide();
   this.unorderedList.insertBefore("div.module:first");
-};  
-
-tabbedNavigation.prototype.createListItem = function() {
   var _this = this
   this.divModule.each(function(index, element) {
     var listItem = $("<li></li>");
     listItem.text($(this).find("h2").text()).attr("id", "listItem" + index);
     _this.unorderedList.append(listItem);
   });
+  this.bindEvents();
 };
 
 tabbedNavigation.prototype.showDiv =  function(textValue) {
@@ -40,9 +39,6 @@ tabbedNavigation.prototype.changeClass = function(currenListItem) {
 
 tabbedNavigation.prototype.bindEvents = function() {
   var _this = this;
-  this.divModule.hide();
-  this.createListElement();
-  this.createListItem();
   this.unorderedList.find("li").on("click", function() {
     _this.showDiv($(this).text());
     _this.changeClass($(this)); 
@@ -54,5 +50,5 @@ $(document).ready(function() {
     "divModule" : $("div.module")
   };
   var tabbedNavigationObj = new tabbedNavigation(elements);
-  tabbedNavigationObj.bindEvents();
+  tabbedNavigationObj.init();
 });
