@@ -1,13 +1,13 @@
-function tabbedNavigation () {
-  this.divModule = $("div.module");
+function tabbedNavigation (getElement) {
+  this.divElement = getElement ;
   this.unorderedList = $("<ul></ul>"); 
 }
 
 tabbedNavigation.prototype.init = function() {
-  this.divModule.hide();
+  this.divElement.hide();
   this.unorderedList.insertBefore("div.module:first");
   var _this = this
-  this.divModule.each(function(index, element) {
+  this.divElement.each(function(index, element) {
     var listItem = $("<li></li>");
     listItem.text($(this).find("h2").text()).attr("id", "listItem" + index);
     _this.unorderedList.append(listItem);
@@ -16,7 +16,7 @@ tabbedNavigation.prototype.init = function() {
 };
 
 tabbedNavigation.prototype.showDiv =  function(textValue) {
-  this.divModule.each(function() {
+  this.divElement.each(function() {
     if ($(this).find("h2").text() == textValue) {
       $(this).show();
     }
@@ -46,6 +46,7 @@ tabbedNavigation.prototype.bindEvents = function() {
 };
 
 $(document).ready(function() {
-  var tabbedNavigationObj = new tabbedNavigation();
+  var divElement = $("div.module");
+  var tabbedNavigationObj = new tabbedNavigation(divElement);
   tabbedNavigationObj.init();
 });
